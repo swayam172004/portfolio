@@ -100,7 +100,7 @@ def home():
         """
         <div class="big-card">
             <h2 class="typing">Hi, I'm <b>Swayam Sikarwar</b> ✨</h2>
-            <h3>Data Science Enthusiast | Aspiring Astrophysicist | Streamlit Developer</h3>
+            <h3 class="typing">Data Science Enthusiast | Aspiring Researcher </h3>
         </div>
         """,
         unsafe_allow_html=True
@@ -118,9 +118,10 @@ def run_streamlit():
                 icons=["house", "person", "code", "envelope"],
                 menu_icon="cast",
                 default_index=0,
+                orientation="horizontal",
             )
     else:
-        selected = st.sidebar.radio("Navigation", ["Home", "About", "Projects", "Contact"], index=0)
+        selected = st.radio("Navigation", ["Home", "About", "Projects", "Contact"], index=0,horizontal=True)
 
     page_key = selected.lower()
     data = get_page_content(page_key)
@@ -208,3 +209,4 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
