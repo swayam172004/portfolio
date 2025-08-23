@@ -116,10 +116,13 @@ def run_streamlit():
     if "selected" not in st.session_state:
         st.session_state.selected = "Home"
 
+    # Render navbar buttons
     for i, page in enumerate(pages):
         if cols[i].button(page):
             st.session_state.selected = page
-    page_key = selected.lower()
+
+    # ✅ Use session_state safely
+    page_key = st.session_state.selected.lower()
     data = get_page_content(page_key)
 
     if page_key == "home":
@@ -205,5 +208,3 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
-
-
