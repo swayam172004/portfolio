@@ -110,19 +110,15 @@ def home():
 def run_streamlit():
     st.markdown(theme_css(), unsafe_allow_html=True)
 
-    if option_menu:
-        with st.sidebar:
-            selected = option_menu(
-                menu_title="Navigation",
-                options=["Home", "About", "Projects", "Contact"],
-                icons=["house", "person", "code", "envelope"],
-                menu_icon="cast",
-                default_index=0,
-                orientation="horizontal",
-            )
-    else:
-        selected = st.radio("Navigation", ["Home", "About", "Projects", "Contact"], index=0,horizontal=True)
+    pages = ["Home", "About", "Projects", "Contact"]
+    cols = st.columns(len(pages))
 
+    if "selected" not in st.session_state:
+        st.session_state.selected = "Home"
+
+    for i, page in enumerate(pages):
+        if cols[i].button(page):
+            st.session_state.selected = page
     page_key = selected.lower()
     data = get_page_content(page_key)
 
@@ -209,4 +205,5 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
