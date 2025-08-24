@@ -18,15 +18,16 @@ def theme_css():
         .stApp { background-color: #0e1117; color: #fafafa; }
         h1, h2, h3, h4, h5, h6, p, div { color: #fafafa !important; }
 
-        /* --- Sidebar toggle button --- */
+        /* --- Sidebar toggle button (replace with hamburger) --- */
         button[kind="header"] div[data-testid="collapsedControl"] svg {
-            display: none; /* hide default » icon */
+            display: none; /* hide default icon */
         }
 
         button[kind="header"] div[data-testid="collapsedControl"]::before {
-            content: "☰";  /* your custom icon (Unicode here) */
-            font-size: 20px;
+            content: "☰";   /* hamburger menu */
+            font-size: 26px;
             color: #fafafa;
+            font-weight: bold;
         }
         </style>
     """
@@ -99,77 +100,25 @@ def home():
     )
 
     st.markdown(
-    """
-    <style>
-    .big-card {
-        font-family: 'Poppins', sans-serif; /* change this to any font */
-        text-align: center;
-    }
-
-    .big-card h2 {
-        font-size: 36px;
-        font-weight: bold;
-        color: #ffffff;
-    }
-
-    .big-card h3 {
-        font-size: 24px;
-        font-weight: normal;
-        color: #dddddd;
-    }
-
-    /* Optional typing animation */
-    .typing {
-        overflow: hidden;
-        border-right: .15em solid #ffffff;
-        white-space: nowrap;
-        animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
-    }
-
-    @keyframes typing {
-        from { width: 0 }
-        to { width: 100% }
-    }
-
-    @keyframes blink-caret {
-        from, to { border-color: transparent }
-        50% { border-color: #ffffff }
-    }
-    </style>
-
-    <div class="big-card">
-        <h2 class="typing">Hi, I'm <b>Swayam Sikarwar</b> ✨</h2>
-        <h3 class="typing">Data Science Enthusiast | Aspiring Researcher</h3>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+        """
+        <div class="big-card">
+            <h2 class="typing">Hi, I'm <b>Swayam Sikarwar</b> ✨</h2>
+            <h3 class="typing">Data Science Enthusiast | Aspiring Researcher</h3>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 def run_streamlit():
+    # Apply theme + hamburger CSS
     st.markdown(theme_css(), unsafe_allow_html=True)
-    # ✅ Replace sidebar toggle with hamburger icon
-st.markdown("""
-<style>
-/* Hide default Streamlit sidebar toggle icons */
-button[kind="header"] div[data-testid="collapsedControl"] svg {
-    display: none;
-}
 
-/* Add hamburger icon instead */
-button[kind="header"] div[data-testid="collapsedControl"]::before {
-    content: "☰";   /* hamburger menu */
-    font-size: 26px; /* adjust size here */
-    color: #fafafa;  /* white */
-    font-weight: bold;
-}
-</style>
-""", unsafe_allow_html=True)
+    # Sidebar navigation
     st.sidebar.title("Navigation")
     selected = st.sidebar.radio(
         "Go to:", ["Home", "About", "Projects", "Contact"], index=0
     )
-
 
     # Page routing
     page_key = selected.lower()
@@ -257,6 +206,3 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
-
-
-
