@@ -101,7 +101,7 @@ def home():
 def run_streamlit():
     st.markdown(theme_css(), unsafe_allow_html=True)
 
-     st.sidebar.title("Navigation")
+    st.sidebar.title("Navigation")
     selected = st.sidebar.radio(
         "Go to:", ["Home", "About", "Projects", "Contact"], index=0
     )
@@ -193,4 +193,5 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
