@@ -44,14 +44,6 @@ def get_page_content(page: str):
             "desc": "An AI-based estimator for predicting product prices.",
             "url": "https://appuctpriceestimator-bt7ajqzqdi7j989gbmsd8z.streamlit.app/"
         },
-        "Data Science Dashboard": {
-            "desc": "An interactive dashboard using Streamlit.",
-            "url": None
-        },
-        "Exoplanet Analysis": {
-            "desc": "Exploring NASA exoplanet datasets with Python.",
-            "url": None
-        },
     }
     skills = ["Python", "Streamlit", "Machine Learning", "Data Science", "SQL", "Git"]
 
@@ -147,11 +139,30 @@ def run_streamlit():
                 st.write(f"✅ {s}")
 
         elif page_key == "projects":
-            for name, info in data.get("projects", {}).items():
-                st.subheader(name)
-                st.write(info["desc"])
-                if info["url"]:
-                    st.markdown(f"[🌐 Open {name}]({info['url']})", unsafe_allow_html=True)
+    for name, info in data.get("projects", {}).items():
+        st.subheader(name)
+        st.write(info["desc"])
+        if info["url"]:
+            st.markdown(
+                f"""
+                <a href="{info['url']}" target="_blank">
+                    <button style="
+                        background-color:#4CAF50;
+                        border:none;
+                        color:white;
+                        padding:10px 20px;
+                        text-align:center;
+                        text-decoration:none;
+                        display:inline-block;
+                        font-size:16px;
+                        border-radius:8px;
+                        cursor:pointer;">
+                        🌐 Open {name}
+                    </button>
+                </a>
+                """,
+                unsafe_allow_html=True,
+            )
 
         elif page_key == "contact":
             st.write(data["body"])
@@ -219,5 +230,6 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
