@@ -17,6 +17,17 @@ def theme_css():
         body { background-color: #0e1117; color: #fafafa; }
         .stApp { background-color: #0e1117; color: #fafafa; }
         h1, h2, h3, h4, h5, h6, p, div { color: #fafafa !important; }
+
+        /* --- Sidebar toggle button --- */
+        button[kind="header"] div[data-testid="collapsedControl"] svg {
+            display: none; /* hide default » icon */
+        }
+
+        button[kind="header"] div[data-testid="collapsedControl"]::before {
+            content: "☰";  /* your custom icon (Unicode here) */
+            font-size: 20px;
+            color: #fafafa;
+        }
         </style>
     """
 
@@ -137,6 +148,21 @@ def home():
 
 def run_streamlit():
     st.markdown(theme_css(), unsafe_allow_html=True)
+    st.markdown("""
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+button[kind="header"] div[data-testid="collapsedControl"] svg {
+    display: none;
+}
+button[kind="header"] div[data-testid="collapsedControl"]::before {
+    font-family: "Font Awesome 6 Free";
+    content: "\\f0c9"; /* hamburger icon */
+    font-weight: 900;
+    font-size: 22px;
+    color: #fafafa;
+}
+</style>
+""", unsafe_allow_html=True)
 
     st.sidebar.title("Navigation")
     selected = st.sidebar.radio(
