@@ -2,12 +2,12 @@ import sys
 
 try:
     import streamlit as st
-except Exception:
+except ImportError:
     st = None
 
 try:
     from streamlit_option_menu import option_menu
-except Exception:
+except ImportError:
     option_menu = None
 
 
@@ -70,7 +70,7 @@ def home():
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 90vh;  /* Full screen */
+            height: 90vh;
             background: linear-gradient(135deg, #1e1e2f, #2c2c54);
             border-radius: 20px;
             padding: 30px 15px;
@@ -100,7 +100,7 @@ def home():
         """
         <div class="big-card">
             <h2 class="typing">Hi, I'm <b>Swayam Sikarwar</b> ✨</h2>
-            <h3 class="typing">Data Science Enthusiast | Aspiring Researcher </h3>
+            <h3 class="typing">Data Science Enthusiast | Aspiring Researcher</h3>
         </div>
         """,
         unsafe_allow_html=True
@@ -110,29 +110,28 @@ def home():
 def run_streamlit():
     st.markdown(theme_css(), unsafe_allow_html=True)
 
-    selected = option_menu(
-        menu_title=None,  # no big title
-        options=["Home", "About", "Projects", "Contact"],
-        icons=["house", "person", "code", "envelope"],  # nice icons
-        orientation="horizontal",  # horizontal on desktop
-        default_index=0,
-        styles={
-            "container": {"padding": "0!important", "background-color": "#0e1117"},
-            "icon": {"color": "white", "font-size": "18px"}, 
-            "nav-link": {
-                "font-size": "16px",
-                "text-align": "center",
-                "margin": "0px",
-                "--hover-color": "#262730",
-            },
-            "nav-link-selected": {"background-color": "#1f1f3a"},
-        }
-    )
+    if option_menu:
+        selected = option_menu(
+            menu_title=None,
+            options=["Home", "About", "Projects", "Contact"],
+            icons=["house", "person", "code", "envelope"],
+            orientation="horizontal",
+            default_index=0,
+            styles={
+                "container": {"padding": "0!important", "background-color": "#0e1117"},
+                "icon": {"color": "white", "font-size": "18px"}, 
+                "nav-link": {
+                    "font-size": "16px",
+                    "text-align": "center",
+                    "margin": "0px",
+                    "--hover-color": "#262730",
+                },
+                "nav-link-selected": {"background-color": "#1f1f3a"},
+            }
+        )
+    else:
+        selected = st.sidebar.radio("Navigate", ["Home", "About", "Projects", "Contact"])
 
-    # Save state
-    st.session_state.selected = selected
-
-    # ✅ Render content
     page_key = selected.lower()
     data = get_page_content(page_key)
 
@@ -144,8 +143,7 @@ def run_streamlit():
             st.write(data["body"])
             st.subheader("Skills")
             for s in data.get("skills", []):
-                st.progress(80)
-                st.write(s)
+                st.write(f"✅ {s}")
         elif page_key == "projects":
             for name, desc in data.get("projects", {}).items():
                 st.subheader(name)
