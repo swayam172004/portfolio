@@ -164,15 +164,15 @@ def run_streamlit():
                     unsafe_allow_html=True,
                 )
 
-elif page_key == "contact":
-    st.write(data["body"])
-    with st.form("contact_form"):
-        name = st.text_input("Your Name")
-        email = st.text_input("Your Email")
-        message = st.text_area("Message")
-        submit = st.form_submit_button("Send")
-        if submit:
-            st.success("Thanks! Your message has been sent.")
+        elif page_key == "contact":
+            st.write(data["body"])
+            with st.form("contact_form"):
+                name = st.text_input("Your Name")
+                email = st.text_input("Your Email")
+                message = st.text_area("Message")
+                submit = st.form_submit_button("Send")
+                if submit:
+                    st.success("Thanks! Your message has been sent.")
 
 def run_cli():
     pages = ["home", "about", "projects", "contact"]
@@ -231,6 +231,7 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
 
