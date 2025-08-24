@@ -70,10 +70,10 @@ def home():
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;  /* Full screen */
+            height: 90vh;  /* Full screen */
             background: linear-gradient(135deg, #1e1e2f, #2c2c54);
             border-radius: 20px;
-            padding: 50px;
+            padding: 30px 15px;
             color: white;
             text-align: center;
             animation: fadeIn 2s ease-in-out;
@@ -86,7 +86,7 @@ def home():
             border-right: 2px solid white;
             white-space: nowrap;
             overflow: hidden;
-            width: 0;
+            max-width: 95vw;
             animation: typing 4s steps(40, end) forwards, blink 0.7s step-end infinite;
         }
         @keyframes typing { from { width: 0; } to { width: 100%; } }
