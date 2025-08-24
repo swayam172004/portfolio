@@ -117,37 +117,34 @@ def home():
 def run_streamlit():
     st.markdown(theme_css(), unsafe_allow_html=True)
 
-    if option_menu:
-        selected = option_menu(
-            menu_title=None,
-            options=["Home", "About", "Projects", "Contact"],
-            icons=["house", "person", "code", "envelope"],
-            orientation="horizontal",
-            default_index=0,
-            styles={
-                "container": {
-                    "padding": "0!important", 
-                    "background-color": "#0e1117",
-                    "display": "flex",
-                    "justify-content": "center",
-                    "flex-wrap": "wrap"  
-                },
-                "icon": {"color": "white", "font-size": "18px"}, 
-                "nav-link": {
-                    "font-size": "16px",
-                    "text-align": "center",
-                    "margin": "0px",
-                    "padding": "10px 15px",
-                    "--hover-color": "#262730",
-                },
-                "nav-link-selected": {"background-color": "#1f1f3a"},
-            }
-        )
-    else:
-        # fallback if option_menu isn't available
-        st.write("⚠️ Install `streamlit-option-menu` for navbar support")
-        selected = "Home"
+    # Always use option_menu (requires streamlit-option-menu installed)
+    selected = option_menu(
+        menu_title=None,
+        options=["Home", "About", "Projects", "Contact"],
+        icons=["house", "person", "code", "envelope"],
+        orientation="horizontal",
+        default_index=0,
+        styles={
+            "container": {
+                "padding": "0!important", 
+                "background-color": "#0e1117",
+                "display": "flex",
+                "justify-content": "center",
+                "flex-wrap": "wrap"  # navbar adapts on mobile
+            },
+            "icon": {"color": "white", "font-size": "18px"}, 
+            "nav-link": {
+                "font-size": "16px",
+                "text-align": "center",
+                "margin": "0px",
+                "padding": "10px 15px",
+                "--hover-color": "#262730",
+            },
+            "nav-link-selected": {"background-color": "#1f1f3a"},
+        }
+    )
 
+    # Page routing
     page_key = selected.lower()
     data = get_page_content(page_key)
 
@@ -233,5 +230,6 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
