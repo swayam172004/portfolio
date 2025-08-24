@@ -110,19 +110,30 @@ def home():
 def run_streamlit():
     st.markdown(theme_css(), unsafe_allow_html=True)
 
-    pages = ["Home", "About", "Projects", "Contact"]
-    cols = st.columns(len(pages))
+    selected = option_menu(
+        menu_title=None,  # no big title
+        options=["Home", "About", "Projects", "Contact"],
+        icons=["house", "person", "code", "envelope"],  # nice icons
+        orientation="horizontal",  # horizontal on desktop
+        default_index=0,
+        styles={
+            "container": {"padding": "0!important", "background-color": "#0e1117"},
+            "icon": {"color": "white", "font-size": "18px"}, 
+            "nav-link": {
+                "font-size": "16px",
+                "text-align": "center",
+                "margin": "0px",
+                "--hover-color": "#262730",
+            },
+            "nav-link-selected": {"background-color": "#1f1f3a"},
+        }
+    )
 
-    if "selected" not in st.session_state:
-        st.session_state.selected = "Home"
+    # Save state
+    st.session_state.selected = selected
 
-    # Render navbar buttons
-    for i, page in enumerate(pages):
-        if cols[i].button(page):
-            st.session_state.selected = page
-
-    # ✅ Use session_state safely
-    page_key = st.session_state.selected.lower()
+    # ✅ Render content
+    page_key = selected.lower()
     data = get_page_content(page_key)
 
     if page_key == "home":
