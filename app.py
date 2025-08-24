@@ -102,10 +102,18 @@ def run_streamlit():
     st.markdown(theme_css(), unsafe_allow_html=True)
 
     # ✅ Sidebar menu instead of navbar
-    st.sidebar.title("Navigation")
-    selected = st.sidebar.radio(
-        "Go to:", ["Home", "About", "Projects", "Contact"], index=0
-    )
+    selected = option_menu(
+    menu_title=None,
+    options=["Home", "Projects", "Contact"],
+    icons=["house", "code-slash", "envelope"],
+    orientation="horizontal",
+    styles={
+        "container": {"padding": "0!important", "background-color": "#0e1117"},
+        "icon": {"color": "white", "font-size": "20px"},
+        "nav-link": {"color": "white", "font-size": "16px", "margin": "0 10px"},
+        "nav-link-selected": {"background-color": "#262730", "border-radius": "8px"},
+    }
+)
 
     # Page routing
     page_key = selected.lower()
@@ -193,3 +201,4 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
