@@ -22,9 +22,16 @@ def theme_css():
         body { background-color: #0e1117; color: #fafafa; }
         .stApp { background-color: #0e1117; color: #fafafa; }
         h1, h2, h3, h4, h5, h6, p, div { color: #fafafa !important; }
+
+        /* Navbar responsive */
+        @media (max-width: 768px) {
+            .nav-link {
+                font-size: 14px !important;
+                padding: 8px 10px !important;
+            }
+        }
         </style>
     """
-
 
 def get_page_content(page: str):
     page = (page or "").strip().lower()
@@ -118,19 +125,28 @@ def run_streamlit():
             orientation="horizontal",
             default_index=0,
             styles={
-                "container": {"padding": "0!important", "background-color": "#0e1117"},
+                "container": {
+                    "padding": "0!important", 
+                    "background-color": "#0e1117",
+                    "display": "flex",
+                    "justify-content": "center",
+                    "flex-wrap": "wrap"  /* lets items wrap on small screens */
+                },
                 "icon": {"color": "white", "font-size": "18px"}, 
                 "nav-link": {
                     "font-size": "16px",
                     "text-align": "center",
                     "margin": "0px",
+                    "padding": "10px 15px",
                     "--hover-color": "#262730",
                 },
                 "nav-link-selected": {"background-color": "#1f1f3a"},
             }
         )
     else:
-        selected = st.sidebar.radio("Navigate", ["Home", "About", "Projects", "Contact"])
+        # fallback if option_menu isn't available
+        st.write("⚠️ Install `streamlit-option-menu` for navbar support")
+        selected = "Home"
 
     page_key = selected.lower()
     data = get_page_content(page_key)
@@ -217,3 +233,4 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
