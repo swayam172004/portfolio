@@ -33,6 +33,7 @@ def theme_css():
         </style>
     """
 
+
 def get_page_content(page: str):
     page = (page or "").strip().lower()
     projects = {
@@ -43,11 +44,7 @@ def get_page_content(page: str):
     skills = ["Python", "Streamlit", "Machine Learning", "Data Science", "SQL", "Git"]
 
     if page == "home":
-        return {
-            "title": "Home",
-            "body": "Welcome to my portfolio!",
-            "image": None
-        }
+        return {"title": "Home", "body": "Welcome to my portfolio!", "image": None}
     if page == "about":
         return {
             "title": "About Me",
@@ -61,10 +58,7 @@ def get_page_content(page: str):
     if page == "projects":
         return {"title": "My Projects", "projects": projects}
     if page == "contact":
-        return {
-            "title": "📬 Get in Touch",
-            "body": "Feel free to connect with me through this form below.",
-        }
+        return {"title": "📬 Get in Touch", "body": "Feel free to connect with me through this form below."}
     return {"title": "Not Found", "body": "The requested page does not exist."}
 
 
@@ -115,9 +109,12 @@ def home():
 
 
 def run_streamlit():
+    if option_menu is None:
+        st.error("⚠️ Please install `streamlit-option-menu` (add it to requirements.txt).")
+        return
+
     st.markdown(theme_css(), unsafe_allow_html=True)
 
-    # Always use option_menu (requires streamlit-option-menu installed)
     selected = option_menu(
         menu_title=None,
         options=["Home", "About", "Projects", "Contact"],
@@ -126,13 +123,13 @@ def run_streamlit():
         default_index=0,
         styles={
             "container": {
-                "padding": "0!important", 
+                "padding": "0!important",
                 "background-color": "#0e1117",
                 "display": "flex",
                 "justify-content": "center",
-                "flex-wrap": "wrap"  # navbar adapts on mobile
+                "flex-wrap": "wrap",  # ✅ Python comment, not CSS
             },
-            "icon": {"color": "white", "font-size": "18px"}, 
+            "icon": {"color": "white", "font-size": "18px"},
             "nav-link": {
                 "font-size": "16px",
                 "text-align": "center",
@@ -141,7 +138,7 @@ def run_streamlit():
                 "--hover-color": "#262730",
             },
             "nav-link-selected": {"background-color": "#1f1f3a"},
-        }
+        },
     )
 
     # Page routing
@@ -230,6 +227,3 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
-
-
-
