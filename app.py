@@ -148,22 +148,23 @@ def home():
 
 def run_streamlit():
     st.markdown(theme_css(), unsafe_allow_html=True)
-    st.markdown("""
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    # ✅ Replace sidebar toggle with hamburger icon
+st.markdown("""
 <style>
+/* Hide default Streamlit sidebar toggle icons */
 button[kind="header"] div[data-testid="collapsedControl"] svg {
     display: none;
 }
+
+/* Add hamburger icon instead */
 button[kind="header"] div[data-testid="collapsedControl"]::before {
-    font-family: "Font Awesome 6 Free";
-    content: "\\f0c9"; /* hamburger icon */
-    font-weight: 900;
-    font-size: 22px;
-    color: #fafafa;
+    content: "☰";   /* hamburger menu */
+    font-size: 26px; /* adjust size here */
+    color: #fafafa;  /* white */
+    font-weight: bold;
 }
 </style>
 """, unsafe_allow_html=True)
-
     st.sidebar.title("Navigation")
     selected = st.sidebar.radio(
         "Go to:", ["Home", "About", "Projects", "Contact"], index=0
