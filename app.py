@@ -36,9 +36,22 @@ def theme_css():
 def get_page_content(page: str):
     page = (page or "").strip().lower()
     projects = {
-        "Movie Success Predictor": "A machine learning app to predict movie success.",
-        "Data Science Dashboard": "An interactive dashboard using Streamlit.",
-        "Exoplanet Analysis": "Exploring NASA exoplanet datasets with Python.",
+        "Movie Success Predictor": {
+            "desc": "A machine learning app to predict movie success.",
+            "url": "https://moivesucesspredictor-kms78vyimxfuf9kdbbobhs.streamlit.app/"
+        },
+        "Product Price Estimator": {
+            "desc": "An AI-based estimator for predicting product prices.",
+            "url": "https://appuctpriceestimator-bt7ajqzqdi7j989gbmsd8z.streamlit.app/"
+        },
+        "Data Science Dashboard": {
+            "desc": "An interactive dashboard using Streamlit.",
+            "url": None
+        },
+        "Exoplanet Analysis": {
+            "desc": "Exploring NASA exoplanet datasets with Python.",
+            "url": None
+        },
     }
     skills = ["Python", "Streamlit", "Machine Learning", "Data Science", "SQL", "Git"]
 
@@ -62,7 +75,6 @@ def get_page_content(page: str):
             "body": "Feel free to connect with me through this form below.",
         }
     return {"title": "Not Found", "body": "The requested page does not exist."}
-
 
 def home():
     st.markdown(
@@ -136,10 +148,10 @@ def run_streamlit():
         elif page_key == "projects":
             for name, desc in data.get("projects", {}).items():
                 st.subheader(name)
-                st.write(desc)
-                st.button(f"View {name}")
-        elif page_key == "contact":
-            st.write(data["body"])
+                st.write(info["desc"])
+                if info["url"]:
+                    st.markdown(f"[🌐 Open {name}]({info['url']})", unsafe_allow_html=True)        elif page_key == "contact":
+                    st.write(data["body"])
             with st.form("contact_form"):
                 name = st.text_input("Your Name")
                 email = st.text_input("Your Email")
@@ -206,3 +218,4 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
