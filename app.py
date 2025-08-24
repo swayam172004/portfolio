@@ -130,7 +130,7 @@ def run_streamlit():
                     "background-color": "#0e1117",
                     "display": "flex",
                     "justify-content": "center",
-                    "flex-wrap": "wrap"  /* lets items wrap on small screens */
+                    "flex-wrap": "wrap"  
                 },
                 "icon": {"color": "white", "font-size": "18px"}, 
                 "nav-link": {
@@ -233,4 +233,5 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
