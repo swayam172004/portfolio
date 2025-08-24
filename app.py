@@ -145,13 +145,16 @@ def run_streamlit():
             st.subheader("Skills")
             for s in data.get("skills", []):
                 st.write(f"✅ {s}")
+
         elif page_key == "projects":
-            for name, desc in data.get("projects", {}).items():
+            for name, info in data.get("projects", {}).items():
                 st.subheader(name)
                 st.write(info["desc"])
                 if info["url"]:
-                    st.markdown(f"[🌐 Open {name}]({info['url']})", unsafe_allow_html=True)        elif page_key == "contact":
-                    st.write(data["body"])
+                    st.markdown(f"[🌐 Open {name}]({info['url']})", unsafe_allow_html=True)
+
+        elif page_key == "contact":
+            st.write(data["body"])
             with st.form("contact_form"):
                 name = st.text_input("Your Name")
                 email = st.text_input("Your Email")
@@ -159,8 +162,6 @@ def run_streamlit():
                 submit = st.form_submit_button("Send")
                 if submit:
                     st.success("Thanks! Your message has been sent.")
-
-
 def run_cli():
     pages = ["home", "about", "projects", "contact"]
     for p in pages:
@@ -218,4 +219,5 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
