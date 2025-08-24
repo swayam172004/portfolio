@@ -5,11 +5,6 @@ try:
 except ImportError:
     st = None
 
-try:
-    from streamlit_option_menu import option_menu
-except ImportError:
-    option_menu = None
-
 
 # ✅ First Streamlit command
 if st:
@@ -22,14 +17,6 @@ def theme_css():
         body { background-color: #0e1117; color: #fafafa; }
         .stApp { background-color: #0e1117; color: #fafafa; }
         h1, h2, h3, h4, h5, h6, p, div { color: #fafafa !important; }
-
-        /* Navbar responsive */
-        @media (max-width: 768px) {
-            .nav-link {
-                font-size: 14px !important;
-                padding: 8px 10px !important;
-            }
-        }
         </style>
     """
 
@@ -58,7 +45,10 @@ def get_page_content(page: str):
     if page == "projects":
         return {"title": "My Projects", "projects": projects}
     if page == "contact":
-        return {"title": "📬 Get in Touch", "body": "Feel free to connect with me through this form below."}
+        return {
+            "title": "📬 Get in Touch",
+            "body": "Feel free to connect with me through this form below.",
+        }
     return {"title": "Not Found", "body": "The requested page does not exist."}
 
 
@@ -94,7 +84,7 @@ def home():
         @keyframes blink { 50% { border-color: transparent; } }
         </style>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
 
     st.markdown(
@@ -104,41 +94,17 @@ def home():
             <h3 class="typing">Data Science Enthusiast | Aspiring Researcher</h3>
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
 
 
 def run_streamlit():
-    if option_menu is None:
-        st.error("⚠️ Please install `streamlit-option-menu` (add it to requirements.txt).")
-        return
-
     st.markdown(theme_css(), unsafe_allow_html=True)
 
-    selected = option_menu(
-        menu_title=None,
-        options=["Home", "About", "Projects", "Contact"],
-        icons=["house", "person", "code", "envelope"],
-        orientation="horizontal",
-        default_index=0,
-        styles={
-            "container": {
-                "padding": "0!important",
-                "background-color": "#0e1117",
-                "display": "flex",
-                "justify-content": "center",
-                "flex-wrap": "wrap",  # ✅ Python comment, not CSS
-            },
-            "icon": {"color": "white", "font-size": "18px"},
-            "nav-link": {
-                "font-size": "16px",
-                "text-align": "center",
-                "margin": "0px",
-                "padding": "10px 15px",
-                "--hover-color": "#262730",
-            },
-            "nav-link-selected": {"background-color": "#1f1f3a"},
-        },
+    # ✅ Sidebar menu instead of navbar
+    st.sidebar.title("Navigation")
+    selected = st.sidebar.radio(
+        "Go to:", ["Home", "About", "Projects", "Contact"], index=0
     )
 
     # Page routing
