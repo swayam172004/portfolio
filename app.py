@@ -88,14 +88,51 @@ def home():
     )
 
     st.markdown(
-        """
-        <div class="big-card">
-            <h2 class="typing">Hi, I'm <b>Swayam Sikarwar</b> ✨</h2>
-            <h3 class="typing">Data Science Enthusiast | Aspiring Researcher</h3>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    """
+    <style>
+    .big-card {
+        font-family: 'Poppins', sans-serif; /* change this to any font */
+        text-align: center;
+    }
+
+    .big-card h2 {
+        font-size: 36px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+
+    .big-card h3 {
+        font-size: 24px;
+        font-weight: normal;
+        color: #dddddd;
+    }
+
+    /* Optional typing animation */
+    .typing {
+        overflow: hidden;
+        border-right: .15em solid #ffffff;
+        white-space: nowrap;
+        animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+    }
+
+    @keyframes typing {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+        from, to { border-color: transparent }
+        50% { border-color: #ffffff }
+    }
+    </style>
+
+    <div class="big-card">
+        <h2 class="typing">Hi, I'm <b>Swayam Sikarwar</b> ✨</h2>
+        <h3 class="typing">Data Science Enthusiast | Aspiring Researcher</h3>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
 
 
 def run_streamlit():
@@ -193,5 +230,6 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
