@@ -1,4 +1,4 @@
-import sys
+so equilibrium of energy import sys
 
 try:
     import streamlit as st
@@ -46,7 +46,8 @@ def get_page_content(page: str):
         },
         "Sales Dashboard (Power BI)": {
             "desc": "An interactive Power BI dashboard for visualizing sales performance.",
-            "url": "https://github.com/YourUsername/YourRepo/blob/main/SalesDashboard.pbix",
+            "url": "VISUALIZATION.pbix",
+            "url": "",
             "image": "https://raw.githubusercontent.com/YourUsername/YourRepo/main/dashboard.png"
         },
     }
@@ -241,6 +242,7 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
 
