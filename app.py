@@ -36,23 +36,24 @@ def theme_css():
 def get_page_content(page: str):
     page = (page or "").strip().lower()
     projects = {
-        "Movie Success Predictor": {
-            "desc": "A machine learning app to predict movie success.",
-            "url": "https://moivesucesspredictor-kms78vyimxfuf9kdbbobhs.streamlit.app/"
-        },
-        "Product Price Estimator": {
-            "desc": "An AI-based estimator for predicting product prices.",
-            "url": "https://appuctpriceestimator-bt7ajqzqdi7j989gbmsd8z.streamlit.app/"
-        },
-        "powerr bi":{
-            "desc": "power bi",
-            "url":"https://github.com/swayam172004/Power-BI/blob/main/VISUALIZATION.pbix"
-        },
-        "powerr bi":{
-            "desc": "power bi",
-            "url":"https://github.com/swayam172004/Power-BI/blob/main/ecommerce%20power%20bi.pbix"
-        },
+    "Movie Success Predictor": {
+        "desc": "A machine learning app to predict movie success.",
+        "url": "https://moivesucesspredictor-kms78vyimxfuf9kdbbobhs.streamlit.app/"
+    },
+    "Product Price Estimator": {
+        "desc": "An AI-based estimator for predicting product prices.",
+        "url": "https://appuctpriceestimator-bt7ajqzqdi7j989gbmsd8z.streamlit.app/"
+    },
+    "Power BI: Sales Dashboard": {
+        "desc": "Power BI visualization of sales data.",
+        "url": "https://github.com/swayam172004/Power-BI/blob/main/VISUALIZATION.pbix"
+    },
+    "Power BI: E-commerce Dashboard": {
+        "desc": "Power BI visualization of e-commerce data.",
+        "url": "https://github.com/swayam172004/Power-BI/blob/main/ecommerce%20power%20bi.pbix"
+    },
     }
+
     skills = ["Python", "Streamlit", "Machine Learning", "Data Science", "SQL", "Git"]
 
     if page == "home":
@@ -244,6 +245,7 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
 
