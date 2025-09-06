@@ -47,7 +47,8 @@ def get_page_content(page: str):
         "powerr bi":{
             "desc": "power bi",
             "url":"https://github.com/swayam172004/Power-BI/blob/main/VISUALIZATION.pbix"
-        }
+        },
+    }
     skills = ["Python", "Streamlit", "Machine Learning", "Data Science", "SQL", "Git"]
 
     if page == "home":
@@ -239,6 +240,7 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
 
