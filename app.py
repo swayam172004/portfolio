@@ -139,30 +139,35 @@ def run_streamlit():
                 st.write(f"✅ {s}")
 
         elif page_key == "projects":
-             for name, info in data.get("projects", {}).items():
-                st.subheader(name)
-                st.write(info["desc"])
-                if info["url"]:
-                    st.markdown(
-                    f"""
-                    <a href="{info['url']}" target="_blank">
-                        <button style="
-                            background-color:#4CAF50;
-                            border:none;
-                            color:white;
-                            padding:10px 20px;
-                            text-align:center;
-                            text-decoration:none;
-                            display:inline-block;
-                            font-size:16px;
-                            border-radius:8px;
-                            cursor:pointer;">
-                            🌐 Open {name}
-                        </button>
-                    </a>
-                    """,
-                    unsafe_allow_html=True,
-                )
+            projects = list(data.get("projects", {}).items())
+            # Display 2 projects per row
+            for i in range(0, len(projects), 2):
+                cols = st.columns(2)
+                for col, (name, info) in zip(cols, projects[i:i+2]):
+                    with col:
+                        st.subheader(name)
+                        st.write(info["desc"])
+                        if info["url"]:
+                            st.markdown(
+                                f""
+                                <a href="{info['url']}" target="_blank">
+                                    <button style="
+                                        background-color:#4CAF50;
+                                        border:none;
+                                        color:white;
+                                        padding:10px 20px;
+                                        text-align:center;
+                                        text-decoration:none;
+                                        display:inline-block;
+                                        font-size:16px;
+                                        border-radius:8px;
+                                        cursor:pointer;">
+                                        🌐 Open {name}
+                                    </button>
+                                </a>
+                                "",
+                                unsafe_allow_html=True,
+                            )
 
         elif page_key == "contact":
             st.write(data["body"])
@@ -186,7 +191,7 @@ def run_cli():
             print("SKILLS:" + ", ".join(d.get("skills", [])))
         elif p == "projects":
             for k, v in d.get("projects", {}).items():
-                print(k + ": " + v)
+                print(f"{k}: {v['desc']} (URL: {v['url']})")
         elif p == "contact":
             print(d.get("body", ""))
 
@@ -231,6 +236,7 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
 
