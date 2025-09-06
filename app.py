@@ -44,6 +44,11 @@ def get_page_content(page: str):
             "desc": "An AI-based estimator for predicting product prices.",
             "url": "https://appuctpriceestimator-bt7ajqzqdi7j989gbmsd8z.streamlit.app/"
         },
+        "Sales Dashboard (Power BI)": {
+            "desc": "An interactive Power BI dashboard for visualizing sales performance.",
+            "url": "https://github.com/YourUsername/YourRepo/blob/main/SalesDashboard.pbix",
+            "image": "https://raw.githubusercontent.com/YourUsername/YourRepo/main/dashboard.png"
+        },
     }
     skills = ["Python", "Streamlit", "Machine Learning", "Data Science", "SQL", "Git"]
 
@@ -236,6 +241,7 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
 
