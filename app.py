@@ -1,4 +1,4 @@
-so equilibrium of energy import sys
+import sys
 
 try:
     import streamlit as st
@@ -44,6 +44,9 @@ def get_page_content(page: str):
             "desc": "An AI-based estimator for predicting product prices.",
             "url": "https://appuctpriceestimator-bt7ajqzqdi7j989gbmsd8z.streamlit.app/"
         },
+        "powerr bi":{
+            "desc": "power bi",
+            "url":"https://github.com/swayam172004/Power-BI/blob/main/VISUALIZATION.pbix"
         }
     skills = ["Python", "Streamlit", "Machine Learning", "Data Science", "SQL", "Git"]
 
