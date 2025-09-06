@@ -149,7 +149,7 @@ def run_streamlit():
                         st.write(info["desc"])
                         if info["url"]:
                             st.markdown(
-                                f""
+                                f'''
                                 <a href="{info['url']}" target="_blank">
                                     <button style="
                                         background-color:#4CAF50;
@@ -165,7 +165,7 @@ def run_streamlit():
                                         🌐 Open {name}
                                     </button>
                                 </a>
-                                "",
+                                ''',
                                 unsafe_allow_html=True,
                             )
 
@@ -236,6 +236,7 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
 
