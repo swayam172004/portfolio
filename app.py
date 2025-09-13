@@ -13,23 +13,80 @@ if st:
 
 def theme_css():
     return """
-        <style>
-        body { background-color: #0e1117; color: #fafafa; }
-        .stApp { background-color: #0e1117; color: #fafafa; }
-        h1, h2, h3, h4, h5, h6, p, div { color: #fafafa !important; }
+    <style>
+    body {
+        background: linear-gradient(135deg, #0e1117, #1c1c2e);
+        color: #fafafa;
+        font-family: 'Poppins', sans-serif;
+    }
+    .stApp {
+        background: transparent;
+    }
+    h1, h2, h3, h4, h5, h6, p, div {
+        color: #fafafa !important;
+    }
 
-        /* --- Sidebar toggle button (replace with hamburger) --- */
-        button[kind="header"] div[data-testid="collapsedControl"] svg {
-            display: none; /* hide default icon */
-        }
+    /* --- Sidebar --- */
+    section[data-testid="stSidebar"] {
+        background: rgba(25, 25, 35, 0.85);
+        backdrop-filter: blur(12px);
+        border-right: 2px solid rgba(255,255,255,0.1);
+    }
 
-        button[kind="header"] div[data-testid="collapsedControl"]::before {
-            content: "☰";   /* hamburger menu */
-            font-size: 26px;
-            color: #fafafa;
-            font-weight: bold;
-        }
-        </style>
+    /* --- Card styles for projects --- */
+    .project-card {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 20px;
+        margin: 15px 0;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+    }
+    .project-title {
+        font-size: 22px;
+        font-weight: bold;
+        background: linear-gradient(90deg, #00c6ff, #0072ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* --- Buttons --- */
+    .glow-btn {
+        background: linear-gradient(90deg, #4CAF50, #2ecc71);
+        border: none;
+        color: white;
+        padding: 10px 22px;
+        font-size: 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 0 12px rgba(46, 204, 113, 0.5);
+    }
+    .glow-btn:hover {
+        box-shadow: 0 0 24px rgba(46, 204, 113, 0.8);
+        transform: scale(1.05);
+    }
+
+    /* --- Typing animation reused for hero --- */
+    .typing {
+        border-right: 3px solid #fff;
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+        animation: typing 4s steps(40, end) forwards, blink 0.7s step-end infinite;
+    }
+    @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+    @keyframes blink {
+        50% { border-color: transparent; }
+    }
+    </style>
     """
 
 
@@ -121,8 +178,6 @@ def home():
         """,
         unsafe_allow_html=True,
     )
-
-
 def run_streamlit():
     # Apply theme + hamburger CSS
     st.markdown(theme_css(), unsafe_allow_html=True)
@@ -154,31 +209,20 @@ def run_streamlit():
                 cols = st.columns(2)
                 for col, (name, info) in zip(cols, projects[i:i+2]):
                     with col:
-                        st.subheader(name)
-                        st.write(info["desc"])
-                        if info["url"]:
-                            st.markdown(
-                                f'''
+                        st.markdown(
+                            f"""
+                            <div class="project-card">
+                                <div class="project-title">{name}</div>
+                                <p>{info['desc']}</p>
                                 <a href="{info['url']}" target="_blank">
-                                    <button style="
-                                        background-color:#4CAF50;
-                                        border:none;
-                                        color:white;
-                                        padding:10px 20px;
-                                        text-align:center;
-                                        text-decoration:none;
-                                        display:inline-block;
-                                        font-size:16px;
-                                        border-radius:8px;
-                                        cursor:pointer;">
-                                        🌐 Open {name}
-                                    </button>
+                                    <button class="glow-btn">🌐 Open {name}</button>
                                 </a>
-                                ''',
-                                unsafe_allow_html=True,
-                            )
+                            </div>
+                            """,
+                            unsafe_allow_html=True,
+                        )
 
-        elif page_key == "contact":
+        elif page_key == "contact":   # <-- fixed indentation
             st.write(data["body"])
             with st.form("contact_form"):
                 name = st.text_input("Your Name")
@@ -245,6 +289,7 @@ if __name__ == "__main__":
         unittest.main(argv=[sys.argv[0]])
     else:
         main()
+
 
 
 
