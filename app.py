@@ -11,7 +11,38 @@ if st:
 
 def theme_css():
     return """<style>
-    /* Add your CSS styling here */
+    body { background-color: #0e1117; color: #fafafa; font-family: 'Arial', sans-serif; }
+    .big-card {
+        text-align: center;
+        margin-top: 50px;
+        padding: 40px;
+        background: linear-gradient(135deg, #1f1c2c, #928dab);
+        border-radius: 20px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    }
+    .typing {
+        font-size: 26px;
+        color: #fff;
+        animation: fadeIn 2s ease-in-out;
+    }
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);} 
+        to {opacity: 1; transform: translateY(0);} 
+    }
+    .skill-tag {
+        display: inline-block;
+        margin: 6px;
+        padding: 8px 12px;
+        background: #444;
+        color: #fff;
+        border-radius: 10px;
+        font-size: 14px;
+        transition: transform 0.3s;
+    }
+    .skill-tag:hover {
+        transform: scale(1.1);
+        background: #4CAF50;
+    }
     .project-card {
         background: #1e1e1e;
         padding: 20px;
@@ -39,15 +70,6 @@ def theme_css():
     }
     .project-btn:hover {
         background: #45a049;
-    }
-    .skill-tag {
-        display: inline-block;
-        margin: 4px;
-        padding: 6px 10px;
-        background: #444;
-        color: #fff;
-        border-radius: 8px;
-        font-size: 13px;
     }
     </style>"""
 
@@ -96,16 +118,21 @@ def get_page_content(page: str):
     return {"title": "Not Found", "body": "The requested page does not exist."}
 
 def home():
-    st.markdown("""<style>
-    /* Add animated typing effect if needed */
-    </style>""", unsafe_allow_html=True)
-
+    st.markdown(theme_css(), unsafe_allow_html=True)
     st.markdown("""
     <div class="big-card">
         <h2 class="typing">Hi, I'm <b>Swayam Sikarwar</b> ✨</h2>
         <h3 class="typing">Data Science Enthusiast | Aspiring Researcher</h3>
+        <p class="typing">Explore my projects, skills, and journey in tech 🚀</p>
     </div>
     """, unsafe_allow_html=True)
+    col1, col2 = st.columns([1,1])
+    if st.button("👀 View My Projects"):
+        st.session_state.page = "projects"
+        st.experimental_rerun()
+    if st.button("📩 Contact Me"):
+        st.session_state.page = "contact"
+        st.experimental_rerun()
 
 def run_streamlit():
     st.markdown(theme_css(), unsafe_allow_html=True)
@@ -113,7 +140,9 @@ def run_streamlit():
     st.sidebar.title("Navigation")
     selected = st.sidebar.radio("Go to:", ["Home", "About", "Projects", "Contact"], index=0)
 
-    # ✅ Social Media Links
+    if "page" not in st.session_state:
+        st.session_state.page = selected.lower()
+
     st.sidebar.markdown("### Connect with me")
     st.sidebar.markdown("""
     [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/swayam172004)  
@@ -121,7 +150,7 @@ def run_streamlit():
     [![Kaggle](https://img.shields.io/badge/Kaggle-Profile-blue?logo=kaggle)](https://www.kaggle.com/swayam172004)
     """, unsafe_allow_html=True)
 
-    page_key = selected.lower()
+    page_key = st.session_state.page
     data = get_page_content(page_key)
 
     if page_key == "home":
@@ -140,7 +169,8 @@ def run_streamlit():
             projects = list(data.get("projects", {}).items())
             for i in range(0, len(projects), 2):
                 cols = st.columns(2)
-                for col, (name, info) in zip(cols, projects[i:i+2]):
+                pair = projects[i:i+2]
+                for col, (name, info) in zip(cols, pair):
                     with col:
                         st.markdown(
                             f"""
@@ -162,6 +192,11 @@ def run_streamlit():
                 submit = st.form_submit_button("Send")
                 if submit:
                     st.success("Thanks! Your message has been sent.")
+
+    nav = st.sidebar.radio("Quick nav", ["Home", "About", "Projects", "Contact"], index=["home","about","projects","contact"].index(page_key))
+    if nav.lower() != page_key:
+        st.session_state.page = nav.lower()
+        st.experimental_rerun()
 
 def run_cli():
     pages = ["home", "about", "projects", "contact"]
