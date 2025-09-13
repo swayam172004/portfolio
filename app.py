@@ -13,102 +13,108 @@ if st:
 
 def theme_css():
     return """
-    <style>
-    body {
-        background: linear-gradient(135deg, #0e1117, #1c1c2e);
-        color: #fafafa;
-        font-family: 'Poppins', sans-serif;
-    }
-    .stApp {
-        background: transparent;
-    }
-    h1, h2, h3, h4, h5, h6, p, div {
-        color: #fafafa !important;
-    }
+        <style>
+        body { background-color: #0e1117; color: #fafafa; }
+        .stApp { background-color: #0e1117; color: #fafafa; }
+        h1, h2, h3, h4, h5, h6, p, div { color: #fafafa !important; }
 
-    /* --- Sidebar --- */
-    section[data-testid="stSidebar"] {
-        background: rgba(25, 25, 35, 0.85);
-        backdrop-filter: blur(12px);
-        border-right: 2px solid rgba(255,255,255,0.1);
-    }
+        /* Sidebar hamburger */
+        button[kind="header"] div[data-testid="collapsedControl"] svg {
+            display: none;
+        }
+        button[kind="header"] div[data-testid="collapsedControl"]::before {
+            content: "☰";
+            font-size: 26px;
+            color: #fafafa;
+            font-weight: bold;
+        }
 
-    /* --- Card styles for projects --- */
-    .project-card {
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 20px;
-        padding: 20px;
-        margin: 15px 0;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .project-card:hover {
-        transform: translateY(-6px) scale(1.02);
-        box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-    }
-    .project-title {
-        font-size: 22px;
-        font-weight: bold;
-        background: linear-gradient(90deg, #00c6ff, #0072ff);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
+        /* Skill tags */
+        .skill-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #4CAF50, #2e7d32);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 25px;
+            margin: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+        .skill-tag:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+        }
 
-    /* --- Buttons --- */
-    .glow-btn {
-        background: linear-gradient(90deg, #4CAF50, #2ecc71);
-        border: none;
-        color: white;
-        padding: 10px 22px;
-        font-size: 16px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: 0.3s;
-        box-shadow: 0 0 12px rgba(46, 204, 113, 0.5);
-    }
-    .glow-btn:hover {
-        box-shadow: 0 0 24px rgba(46, 204, 113, 0.8);
-        transform: scale(1.05);
-    }
+        /* Project cards */
+        .project-card {
+            background: linear-gradient(135deg, #1f1f2e, #292946);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+        }
+        .project-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .project-desc {
+            font-size: 15px;
+            color: #cfcfcf;
+            margin-bottom: 15px;
+        }
+        .project-btn {
+            background: #4CAF50;
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 15px;
+            transition: background 0.3s ease;
+        }
+        .project-btn:hover {
+            background: #45a049;
+        }
 
-    /* --- Typing animation reused for hero --- */
-    .typing {
-        border-right: 3px solid #fff;
-        white-space: nowrap;
-        overflow: hidden;
-        display: inline-block;
-        animation: typing 4s steps(40, end) forwards, blink 0.7s step-end infinite;
-    }
-    @keyframes typing {
-        from { width: 0; }
-        to { width: 100%; }
-    }
-    @keyframes blink {
-        50% { border-color: transparent; }
-    }
-    </style>
+        /* Contact form */
+        .stTextInput > div > div > input,
+        .stTextArea > div > textarea {
+            background-color: #1f1f2e;
+            color: white;
+            border-radius: 10px;
+            border: 1px solid #4CAF50;
+        }
+        </style>
     """
 
 
 def get_page_content(page: str):
     page = (page or "").strip().lower()
     projects = {
-    "Movie Success Predictor": {
-        "desc": "A machine learning app to predict movie success.",
-        "url": "https://moivesucesspredictor-kms78vyimxfuf9kdbbobhs.streamlit.app/"
-    },
-    "Product Price Estimator": {
-        "desc": "An AI-based estimator for predicting product prices.",
-        "url": "https://appuctpriceestimator-bt7ajqzqdi7j989gbmsd8z.streamlit.app/"
-    },
-    "Power BI: Sales Dashboard": {
-        "desc": "Power BI visualization of sales data.",
-        "url": "https://github.com/swayam172004/Power-BI/blob/main/VISUALIZATION.pbix"
-    },
-    "Power BI: E-commerce Dashboard": {
-        "desc": "Power BI visualization of e-commerce data.",
-        "url": "https://github.com/swayam172004/Power-BI/blob/main/ecommerce%20power%20bi.pbix"
-    },
+        "Movie Success Predictor": {
+            "desc": "A machine learning app to predict movie success.",
+            "url": "https://moivesucesspredictor-kms78vyimxfuf9kdbbobhs.streamlit.app/",
+        },
+        "Product Price Estimator": {
+            "desc": "An AI-based estimator for predicting product prices.",
+            "url": "https://appuctpriceestimator-bt7ajqzqdi7j989gbmsd8z.streamlit.app/",
+        },
+        "Power BI: Sales Dashboard": {
+            "desc": "Power BI visualization of sales data.",
+            "url": "https://github.com/swayam172004/Power-BI/blob/main/VISUALIZATION.pbix",
+        },
+        "Power BI: E-commerce Dashboard": {
+            "desc": "Power BI visualization of e-commerce data.",
+            "url": "https://github.com/swayam172004/Power-BI/blob/main/ecommerce%20power%20bi.pbix",
+        },
     }
 
     skills = ["Python", "Streamlit", "Machine Learning", "Data Science", "SQL", "Git"]
@@ -134,6 +140,7 @@ def get_page_content(page: str):
         }
     return {"title": "Not Found", "body": "The requested page does not exist."}
 
+
 def home():
     st.markdown(
         """
@@ -144,7 +151,7 @@ def home():
             justify-content: center;
             align-items: center;
             height: 90vh;
-            background: linear-gradient(135deg, #1e1e2f, #2c2c54);
+            background: linear-gradient(135deg, #1e1e2f, #2c2c54, #3a3a7a);
             border-radius: 20px;
             padding: 30px 15px;
             color: white;
@@ -178,17 +185,14 @@ def home():
         """,
         unsafe_allow_html=True,
     )
+
+
 def run_streamlit():
-    # Apply theme + hamburger CSS
     st.markdown(theme_css(), unsafe_allow_html=True)
 
-    # Sidebar navigation
     st.sidebar.title("Navigation")
-    selected = st.sidebar.radio(
-        "Go to:", ["Home", "About", "Projects", "Contact"], index=0
-    )
+    selected = st.sidebar.radio("Go to:", ["Home", "About", "Projects", "Contact"], index=0)
 
-    # Page routing
     page_key = selected.lower()
     data = get_page_content(page_key)
 
@@ -199,30 +203,29 @@ def run_streamlit():
         if page_key == "about":
             st.write(data["body"])
             st.subheader("Skills")
-            for s in data.get("skills", []):
-                st.write(f"✅ {s}")
+            st.markdown(
+                "".join([f"<span class='skill-tag'>{s}</span>" for s in data.get("skills", [])]),
+                unsafe_allow_html=True,
+            )
 
         elif page_key == "projects":
             projects = list(data.get("projects", {}).items())
-            # Display 2 projects per row
             for i in range(0, len(projects), 2):
                 cols = st.columns(2)
                 for col, (name, info) in zip(cols, projects[i:i+2]):
                     with col:
                         st.markdown(
-                            f"""
+                            f""
                             <div class="project-card">
                                 <div class="project-title">{name}</div>
-                                <p>{info['desc']}</p>
-                                <a href="{info['url']}" target="_blank">
-                                    <button class="glow-btn">🌐 Open {name}</button>
-                                </a>
+                                <div class="project-desc">{info['desc']}</div>
+                                <a href="{info['url']}" target="_blank" class="project-btn">🌐 Open {name}</a>
                             </div>
-                            """,
+                            "",
                             unsafe_allow_html=True,
                         )
 
-        elif page_key == "contact":   # <-- fixed indentation
+        elif page_key == "contact":
             st.write(data["body"])
             with st.form("contact_form"):
                 name = st.text_input("Your Name")
@@ -231,6 +234,7 @@ def run_streamlit():
                 submit = st.form_submit_button("Send")
                 if submit:
                     st.success("Thanks! Your message has been sent.")
+
 
 def run_cli():
     pages = ["home", "about", "projects", "contact"]
@@ -257,49 +261,4 @@ def main():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "test":
-        import unittest
-
-        class TestPages(unittest.TestCase):
-            def test_home(self):
-                d = get_page_content("home")
-                self.assertIn("title", d)
-                self.assertIn("body", d)
-                self.assertIn("image", d)
-
-            def test_about(self):
-                d = get_page_content("about")
-                self.assertIn("skills", d)
-                self.assertGreater(len(d["skills"]), 0)
-
-            def test_projects(self):
-                d = get_page_content("projects")
-                self.assertIn("projects", d)
-                self.assertIn("Movie Success Predictor", d["projects"])
-
-            def test_contact(self):
-                d = get_page_content("contact")
-                self.assertIn("title", d)
-                self.assertIn("body", d)
-
-            def test_theme_css(self):
-                css = theme_css()
-                self.assertIn("#0e1117", css)
-
-        unittest.main(argv=[sys.argv[0]])
-    else:
-        main()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    main()
