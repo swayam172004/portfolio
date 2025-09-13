@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 
 try:
@@ -219,7 +220,7 @@ def run_streamlit():
                             <div class="project-card">
                                 <div class="project-title">{name}</div>
                                 <div class="project-desc">{info['desc']}</div>
-                                <a href="{info['url']}" target="_blank" class="project-btn">🌐 Open {name}</a>
+                                <a href="{info['url']}" target="_blank" class="project-btn">\U0001F310 Nai Kuch Nikhil RARAT Open {name}</a>
                             </div>
                             "",
                             unsafe_allow_html=True,
@@ -262,3 +263,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
