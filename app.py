@@ -11,8 +11,44 @@ if st:
 
 def theme_css():
     return """<style>
-    /* [Your existing CSS remains unchanged] */
-    /* ... */
+    /* Add your CSS styling here */
+    .project-card {
+        background: #1e1e1e;
+        padding: 20px;
+        border-radius: 12px;
+        margin: 10px 0;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .project-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .project-desc {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    .project-btn {
+        display: inline-block;
+        padding: 8px 12px;
+        background: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: background 0.3s;
+    }
+    .project-btn:hover {
+        background: #45a049;
+    }
+    .skill-tag {
+        display: inline-block;
+        margin: 4px;
+        padding: 6px 10px;
+        background: #444;
+        color: #fff;
+        border-radius: 8px;
+        font-size: 13px;
+    }
     </style>"""
 
 def get_page_content(page: str):
@@ -61,7 +97,7 @@ def get_page_content(page: str):
 
 def home():
     st.markdown("""<style>
-    /* [Your animated typing CSS remains unchanged] */
+    /* Add animated typing effect if needed */
     </style>""", unsafe_allow_html=True)
 
     st.markdown("""
@@ -106,13 +142,16 @@ def run_streamlit():
                 cols = st.columns(2)
                 for col, (name, info) in zip(cols, projects[i:i+2]):
                     with col:
-                        st.markdown(f"
-                        <div class="project-card">
-                            <div class="project-title">{name}</div>
-                            <div class="project-desc">{info['desc']}</div>
-                            <a href="{info['url']}" target="_blank" class="project-btn">Open {name}</a>
-                        </div>
-                        " , unsafe_allow_html=True)
+                        st.markdown(
+                            f"""
+                            <div class="project-card">
+                                <div class="project-title">{name}</div>
+                                <div class="project-desc">{info['desc']}</div>
+                                <a href="{info['url']}" target="_blank" class="project-btn">Open {name}</a>
+                            </div>
+                            """,
+                            unsafe_allow_html=True,
+                        )
 
         elif page_key == "contact":
             st.write(data["body"])
